@@ -6,3 +6,5 @@ create dev branch
 
 master final change
 sunday
+
+some newfeature
