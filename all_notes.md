@@ -98,6 +98,8 @@ HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历�
 
 从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
 
+删除远程分支：git push origin --delete branch_need_to_be_deleted
+
 ## rebase操作可以把本地未push的分叉提交历史整理成直线；
 
 rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。
