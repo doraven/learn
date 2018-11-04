@@ -2,7 +2,7 @@
 
 - test stage
 
-create dev branch
+create a new dev branch
 
 master final change
 sunday
