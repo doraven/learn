@@ -6,4 +6,4 @@ add another line.
 
 add one more line.
 
-ready for stage.
+ready for stage
