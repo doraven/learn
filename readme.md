@@ -10,3 +10,4 @@ sunday
 some newfeature
 
 still developing
+test gpgkey
