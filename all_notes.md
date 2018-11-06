@@ -5,6 +5,7 @@ git config --global user.name "Your Name"
 
 git config --global user.email "email@example.com"
 
+
 ## 基本操作
 - `git init`
 
@@ -38,6 +39,7 @@ git config --global user.email "email@example.com"
 
     重返未来，查看命令历史，以便确定要回到未来的哪个版本。
 
+
 ## 版本回退
 - `git reset --hard HEAD~{number}|{commit_id} {filename}`
 
@@ -48,7 +50,6 @@ git config --global user.email "email@example.com"
 
 
 ## 撤销修改
-
 - 场景1：`git checkout -- {filename}`
 
     改乱了工作区某个文件的内容，想直接丢弃工作区的修改；
@@ -58,6 +59,7 @@ git config --global user.email "email@example.com"
     当你不但改乱了工作区某个文件的内容，还`git add`添加到了暂存区时，想丢弃修改，分两步，第一步用命令`git reset HEAD {filename}`，就回到了场景1，第二步按场景1操作；
 
 - 场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考 **[版本回退](#版本回退)** ，不过前提是没有推送到远程库。
+
 
 ## 远程库
 - `git remote add origin git@server:path/repo.git`
@@ -71,80 +73,167 @@ git config --global user.email "email@example.com"
 
 - `git clone git@server:path/repo.git`
 
-    复制一个仓库到本地，首先必须知道仓库的地址。
+    复制一个仓库的 **master-分支** 到本地，首先必须知道仓库的地址；
 
-## Git鼓励大量使用分支：
+- `git remote -v`
 
-查看分支：git branch
+    显示更详细的远程库信息；
 
-创建分支：git branch <name>
+- `git checkout -b {new-branch} origin/{dev}`
 
-切换分支：git checkout <name>
+    将本地的 **{new-branch}** 分支对应远程的 **{dev}** 分支；
 
-创建+切换分支：git checkout -b <name>
+- `git push origin {branch}`
 
-合并某分支到当前分支：git merge <name>
+    向远程库推送 **{branch}** 分支，简单的`git push`为推送当前分支；
 
-删除分支：git branch -d <name>
+- `git pull origin {remote-branch}:{local-branch}`
 
-## 当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。
+    取回远程主机origin某个分支的更新，再与本地的指定分支合并。本质是`git fech` + `git  merge`；
 
-解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。
+- `git push origin --delete {branch_need_to_be_deleted}`
 
-用git log --graph命令可以看到分支合并图。
+    删除远程分支；
 
-## 合并分支时，加上--no-ff参数就可以用普通模式合并
+## 分支：
+- `git branch`
 
-合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+    查看分支；
 
-## git stash
+- `git branch {new-branch}`
 
-修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
+    创建分支；
 
-当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场
+- `git checkout {old-branch}`
 
-## 开发一个新feature，最好新建一个分支；
+    切换分支；
 
-如果要丢弃一个没有被合并过的分支，可以通过git branch -D <name>强行删除。
+- `git checkout -b {new-branch}`
 
-## 多人协作
+    创建+切换分支；
 
-查看远程库信息，使用git remote -v；
+- `git branch -[d | D] {branch}`
 
-本地新建的分支如果不推送到远程，对其他人就是不可见的；
+    删除分支；
 
-从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+    - **-d** 常用命令；
+    - **-D** 若分支有改动未commit，-d无法删除；
 
-在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
 
-建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+## 分支合并
+-  `git merge {branch-to-be-merged}`
+    - **Fast forward** （默认）
 
-从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
+        删除分支之后，丢失了分支信息；
+    - **-no-ff**
 
-删除远程分支：git push origin --delete branch_need_to_be_deleted
+        保留分支的每一次commit历史；
 
-## rebase操作可以把本地未push的分叉提交历史整理成直线；
+    - **--squash**
 
-rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。
+        把多次分支commit历史压缩为一次，保留；
 
-## 命令git tag <tagname>用于新建一个标签，默认为HEAD，也可以指定一个commit id；
+- 无法自动合并时，先编辑冲突文件为我们希望的内容。再提交，合并完成，删除分支；
 
-命令git tag -a <tagname> -m "blablabla..."可以指定标签信息；
+    用git log --graph命令可以看到分支合并图；
 
-命令git tag可以查看所有标签。
 
-## tag 远程操作
+## stash
+- `git stash`
 
-命令git push origin <tagname>可以推送一个本地标签；
+    当手头工作没有完成时，先把工作现场—— **WORKING COPY** `git stash`一下，然后去修复bug。修复后，再回到工作现场。可多次使用，为栈式结构；
 
-命令git push origin --tags可以推送全部未推送过的本地标签；
+- `git stash list`
 
-命令git tag -d <tagname>可以删除一个本地标签；
+    显示被stash的工作现场；
 
-命令git push origin :refs/tags/<tagname>可以删除一个远程标签。
+- `git stash [apply | drop | pop | clear]`
 
-## 忽略某些文件时，需要编写.gitignore；
+    - **apply stash@{NUM}**
 
-.gitignore文件本身要放到版本库里，并且可以对.gitignore做版本管理！
+        恢复至指定stash，默认栈顶；
 
-## git config --global alias.st status
+    - **drop**
+
+        删除指定stash，默认栈顶；
+
+    - **pop**
+
+        恢复至指定stash，并删除该存储，默认栈顶；
+
+    - **clear**
+
+        删除stash所有缓存；
+
+
+## 变基？？
+
+变基命令在于将分支上的合并操作简化为线性操作。git将分支的修改结合master的修改，使分支上的操作插入到合并后的那一刻，项目历史会非常整洁；
+
+**绝不要在公共的分支上使用它！** 可在自己的私有小分支上使用，方便其他人查看修改。
+
+- `git rebase`
+
+    将当前分支变直；
+
+- `git rebase -i {branch} | HEAD~NUM`
+
+    - **{branch}**
+
+    将当前分支和{branch}分支合并，打开交互式rebase；
+
+    - **HEAD~NUM**
+
+    rebase当前分支最后NUM次提交；
+
+
+## 标签
+- `git tag`
+
+    查看所有标签
+
+- `git tag {tagname} {commit_id}`
+    - **commit_id**
+        （可省略，默认最新一次提交）上打上标签{tagname}；
+
+    - **-a {tagname}**
+        指定标签名；
+
+    - **-m {comment}**
+        指定说明文字；
+
+- `git show {tagname}`
+    查看标签为{tagname}的提交信息；
+
+- `git tag -d {tagname}`
+
+    删除名为{tagname}的标签；
+
+- `git push origin {tagname}`
+
+    推送某个标签到远程；
+
+- `git push origin --tags`
+
+    一次性推送全部尚未推送到远程的本地标签；
+
+- `git push origin :refs/tags/{tagname}`
+    删除远程标签，需要先删除本地tag；
+
+
+## git配置
+本地的global配置文件：**~/.gitconfig**，也可自行按喜好手动设置如下：
+```
+git config --global alias.st status
+git config --global alias.ck checkout
+git config --global alias.cm "commit -m"
+git config --global alias.br branch
+git config --global alias.unstage 'reset HEAD'
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+```
+
+## 忽略特殊文件
+在项目根目录下，编写**.gitignore**，注释行为“#”。**.gitignore** 文件本身要放到版本库里，并且可以对.gitignore做版本管理！；
+
+- `git add -f {filename}`
+    强制添加被被忽略的文件；
