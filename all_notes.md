@@ -84,16 +84,16 @@ git config --global user.email "email@example.com"
     将本地的 **{new-branch}** 分支对应远程的 **{dev}** 分支；
 
 - `git push origin {branch}`
-
     向远程库推送 **{branch}** 分支，简单的`git push`为推送当前分支；
-
-- `git pull origin {remote-branch}:{local-branch}`
-
-    取回远程主机origin某个分支的更新，再与本地的指定分支合并。本质是`git fech` + `git  merge`；
+    - **-f** 强制更新远程端与本地同步
 
 - `git push origin --delete {branch_need_to_be_deleted}`
 
     删除远程分支；
+
+- `git pull origin {remote-branch}:{local-branch}`
+
+    取回远程主机origin某个分支的更新，再与本地的指定分支合并。本质是`git fech` + `git  merge`；
 
 ## 分支：
 - `git branch`
