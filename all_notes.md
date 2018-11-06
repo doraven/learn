@@ -203,6 +203,7 @@ git config --global user.email "email@example.com"
         指定说明文字；
 
 - `git show {tagname}`
+
     查看标签为{tagname}的提交信息；
 
 - `git tag -d {tagname}`
@@ -218,6 +219,7 @@ git config --global user.email "email@example.com"
     一次性推送全部尚未推送到远程的本地标签；
 
 - `git push origin :refs/tags/{tagname}`
+
     删除远程标签，需要先删除本地tag；
 
 
@@ -236,4 +238,5 @@ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Crese
 在项目根目录下，编写**.gitignore**，注释行为“#”。**.gitignore** 文件本身要放到版本库里，并且可以对.gitignore做版本管理！；
 
 - `git add -f {filename}`
+
     强制添加被被忽略的文件；
