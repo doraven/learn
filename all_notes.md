@@ -6,45 +6,49 @@ git config --global user.name "Your Name"
 git config --global user.email "email@example.com"
 
 ## 基本操作
-- git init
+- `git init`
 
     初始化一个本地空Git仓库；
-    
-- git add <file>
-    
+
+- `git add {file}`
+
     添加文件到Git仓库，可反复多次使用，添加多个文件；
 
-- git commit -m <message>
-    
-    完成提交;
+- `git commit -m {message}`
 
--git status
+- `git status`
 
--git diff <filename>
-    
+- `git diff <filename>`
+
     也可以不加文件名，显示所有diff;
 
-    -git diff HEAD -- <filename>
+    - `git diff HEAD -- {filename}`
 
         显示与版本库的不同，HEAD可换做其他;
 
--git log
+- `git log`
 
     查看提交历史，以便确定要回退到哪个版本。可以使用自定义的git lg，更好看;
 
--git reflog
+- `git reflog`
 
-    要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
+    重返未来，查看命令历史，以便确定要回到未来的哪个版本。
 
--git reset --hard HEAD~<number>|<commit_id>
+- `git reset --hard HEAD~{number}|{commit_id} {filename}`
 
-    在版本的历史之间穿梭。HEAD指向当前版本，HEAD^,HEAD^^,HEAD^^^ 可以指向之前的版本。
+    在版本的历史之间穿梭。**HEAD** 指向当前版本，**HEAD^**,**HEAD^^**,**HEAD^^^** 可以指向之前的版本。不添加 **{filename}** 时，指定版本。
+    - `--mixed`（默认）更改**HEAD**、**INDEX**
+    - `--soft`只更改**HEAD**
+    - `--hard`更改**HEAD**、**INDEX** 、**WORKING COPY** 所有
+
 
 ## 撤销修改
 
-- 场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+- 场景1：`git checkout -- {filename}`
 
-- 场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD <file>，就回到了场景1，第二步按场景1操作。
+    改乱了工作区某个文件的内容，想直接丢弃工作区的修改。
+
+- 场景2：当你不但改乱了工作区某个文件的内容，还`git add`添加到了暂存区时，想丢弃修改，分两步，第一步用命令`git reset HEAD {filename}`，就回到了场景1，第二步按场景1操作。
 
 - 场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
 
@@ -139,5 +143,3 @@ rebase的目的是使得我们在查看历史提交的变化时更容易，因�
 .gitignore文件本身要放到版本库里，并且可以对.gitignore做版本管理！
 
 ## git config --global alias.st status
-
-
