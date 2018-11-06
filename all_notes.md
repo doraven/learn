@@ -5,6 +5,7 @@ git config --global user.name "Your Name"
 
 git config --global user.email "email@example.com"
 
+
 ## 基本操作
 - `git init`
 
@@ -38,6 +39,7 @@ git config --global user.email "email@example.com"
 
     重返未来，查看命令历史，以便确定要回到未来的哪个版本。
 
+
 ## 版本回退
 - `git reset --hard HEAD~{number}|{commit_id} {filename}`
 
@@ -48,7 +50,6 @@ git config --global user.email "email@example.com"
 
 
 ## 撤销修改
-
 - 场景1：`git checkout -- {filename}`
 
     改乱了工作区某个文件的内容，想直接丢弃工作区的修改；
@@ -58,6 +59,7 @@ git config --global user.email "email@example.com"
     当你不但改乱了工作区某个文件的内容，还`git add`添加到了暂存区时，想丢弃修改，分两步，第一步用命令`git reset HEAD {filename}`，就回到了场景1，第二步按场景1操作；
 
 - 场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考 **[版本回退](#版本回退)** ，不过前提是没有推送到远程库。
+
 
 ## 远程库
 - `git remote add origin git@server:path/repo.git`
@@ -71,37 +73,75 @@ git config --global user.email "email@example.com"
 
 - `git clone git@server:path/repo.git`
 
-    复制一个仓库到本地，首先必须知道仓库的地址。
+    复制一个仓库的 **master-分支** 到本地，首先必须知道仓库的地址。
 
-## Git鼓励大量使用分支：
+- `git checkout -b {new-branch} origin/{dev}`
 
-查看分支：git branch
+    将本地的 **{new-branch}** 分支对应远程的 **{dev}** 分支
 
-创建分支：git branch <name>
 
-切换分支：git checkout <name>
+## 分支：
+- `git branch`
 
-创建+切换分支：git checkout -b <name>
+    查看分支；
 
-合并某分支到当前分支：git merge <name>
+- `git branch {new-branch}`
 
-删除分支：git branch -d <name>
+    创建分支；
 
-## 当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。
+- `git checkout {old-branch}`
 
-解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。
+    切换分支；
 
-用git log --graph命令可以看到分支合并图。
+- `git checkout -b {new-branch}`
 
-## 合并分支时，加上--no-ff参数就可以用普通模式合并
+    创建+切换分支；
 
-合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+- `git branch -d {branch}`
 
-## git stash
+    删除分支；
 
-修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
 
-当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场
+## 分支合并
+-  `git merge {branch-to-be-merged}`
+    - **Fast forward** （默认）
+
+        删除分支之后，丢失了分支信息；
+    - **-no-ff**
+
+        保留分支的每一次commit历史；
+
+    - **--squash**
+
+        把多次分支commit历史压缩为一次，保留；
+
+- 无法自动合并时，先编辑冲突文件为我们希望的内容。再提交，合并完成，删除分支；
+
+    用git log --graph命令可以看到分支合并图；
+
+
+## stash
+- `git stash`
+
+    当手头工作没有完成时，先把工作现场—— **WORKING COPY** `git stash`一下，然后去修复bug。修复后，再回到工作现场。可多次使用；
+
+- `git stash list`
+
+    显示被stash的工作现场；
+
+- `git stash [apply | drop | pop]`
+
+    - **apply stash@{NUM}**
+
+        恢复至指定stash，默认0；
+
+    - **drop**
+
+        删除指定stash，默认所有；
+
+    - **pop**
+
+        恢复至指定stash，并删除；
 
 ## 开发一个新feature，最好新建一个分支；
 
