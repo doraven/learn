@@ -87,7 +87,12 @@ git config --global user.email "email@example.com"
     向远程库推送 **{branch}** 分支，简单的`git push`为推送当前分支；
     - **-f** 强制更新远程端与本地同步
 
+- `git push origin {local-branch}:{remote-branch}`
+
+    在远程端新建分支，并推送本地分支至远程
+
 - `git push origin --delete {branch_need_to_be_deleted}`
+- `git push origin :{branch_need_to_be_deleted}`
 
     删除远程分支；
 
