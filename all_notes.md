@@ -79,6 +79,10 @@ git config --global user.email "email@example.com"
 
     显示更详细的远程库信息；
 
+- `git remote update origin --prune`
+
+    更新远程分支列表
+
 - `git checkout -b {new-branch} origin/{dev}`
 
     将本地的 **{new-branch}** 分支对应远程的 **{dev}** 分支；
