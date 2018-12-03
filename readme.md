@@ -1,13 +1,5 @@
-# Test Readme
+# 学习笔记
 
-- test stage
+- `Git`
 
-create a new dev branch
-
-master final change
-sunday
-
-some newfeature
-
-still developing
-stest gpgkey
+    
