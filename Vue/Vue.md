@@ -7,13 +7,9 @@
         data: data_dic,
 
         beforeCreated: function () {},
-        created: function () {},
-        beforeMount: function () {},
-        mounted: function () {},
-        beforeUpdate: function () {},
-        updated: function () {},
-        beforeDestroy: function () {},
-        destroyed: function () {},
+        created, beforeMount, mounted,
+        beforeUpdate, updated, beforeDestroy,
+        destroyed,
 
         computed: {
             functionName1: function () {
@@ -147,12 +143,13 @@
 
     `{{ functionMethod() }}`: `brace`: `()` is NECESSARY!
 
-    > Vue desides whether to re-render or not depends on it automatics checks.
-    > 1.data rendered or not;
-    > 2.data used in methods or computed rendered or not;
+    > Vue calls re-render when: 
     >
-    > Difference between computed and methods is that, if both not using data,
-    > methods can be excuted when re-render called.
+    > 1.directly rendered data changes;
+    >
+    > 2.rendered data which used in methods or computed changes;
+    >
+    > Difference between computed and methods is that, methods re-excutes when re-render called.
 
 - `watched`
 
@@ -199,12 +196,13 @@
     </template>
 
 - `key`
-    Vue reuse components to render faster. Set key as attributes will let v-e
-    lse-if separate values.
+    Vue re-uses components to render faster.
+    
+    Set key as attributes will let v-else-if separate values.
 
 - `v-show`
 
-    render DOM and hide it with `display`
+    will render DOM and hide it with `display`
 
 - `v-for`
     `v-for` has higher priority than `v-if`
@@ -295,7 +293,7 @@
 
 ## Form Input Bindings
 
-- `v-model="var"` use var to binding data
+- `v-model="var"` uses var to binding data of input
 
     - `text textarea` -- text input or area, message is the value
 
@@ -308,7 +306,7 @@
 
     - `radio`
 
-    - `select`it's import to set disabled select for iOS
+    - `select` it's import to set disabled select for iOS
 
             <select v-model="selected" (multiple)>
             <option disabled value="">Please select one</option>
@@ -320,9 +318,9 @@
 
         option can also bind value instead of what inside `<option>` tag. Used as
 
-                <option :value="{ key: 123 }">123</option>
+            <option :value="{ key: 123 }">123</option>
 
-- `.lazy` sync after change event
+- `.lazy` sync only after `change` event
 
         <input v-model.lazy="msg">
 
@@ -345,17 +343,17 @@
         <componentName></componentName>
     </div>
 
-- components are like Vue Instances except for `el`. one more instance created everytime the specific component used.
+- components are like Vue Instances except for `el`. one more instance is created everytime a component used.
 
-- `data` must be function returns `data_dic`, or every components use same `data_dic`.
+- `data` must be function returning `data_dic`, or every component uses one `data_dic`.
 
 - `props` is used to passing data to template
 
         <componentName prop1="prop1 things"></componentName>
 
-    now it's possible to use `v-for  itemList ` to bind values of item in itemList.
+    now it's possible to use `v-for itemList ` to bind values of item in itemList.
 
-    if there are many props, a `prop_dic1` maybe used to pass value to component.
+    if there are many props, a `prop_dic1` shoule be used to pass values to component.
 
         Vue.component('componentName', {
         props: ['prop_dic1'],
@@ -405,7 +403,7 @@
           Something bad happened.
         </alert-box>
 
-- `v-bind:is="componentName"` to switch different components
+- `v-bind:is="componentName"` is used to switch different components
 
 # Vue suggested pack:
 
